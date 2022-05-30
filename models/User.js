@@ -84,7 +84,18 @@ User.prototype.register = function() {
         } else {
           reject(this.errors)
         }
-      })
+    })
+}
+
+User.fetchUsers = function() {
+    return new Promise(async (resolve, reject) => {
+        let users = await usersCollection.find({}).toArray()
+      if ( users ) {
+        resolve(users)
+      } else { 
+        reject("No users were found")
+      }
+    })
 }
 
 module.exports = User

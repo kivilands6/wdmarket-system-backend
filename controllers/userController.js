@@ -63,6 +63,16 @@ exports.apiRegister = function (req, res) {
       .catch(regErrors => {
         res.status(500).send(regErrors)
       })
+}
+
+exports.fetchUsers = function(req, res) {
+    User.fetchUsers()
+      .then(users => {
+        res.json(users)
+      })
+      .catch(e => {
+        res.json([])
+      })
   }
 
 exports.home = (req, res) => {

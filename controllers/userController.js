@@ -23,7 +23,13 @@ exports.apiLogin = function (req, res) {
         res.json({
           token: jwt.sign({ _id: user.data._id, username: user.data.username, avatar: user.avatar }, "secretkeyappearshere", { expiresIn: tokenLasts }),
           username: user.data.username,
-          avatar: user.avatar
+          avatar: user.avatar,
+          email: user.data.email,
+          name: user.data.name,
+          surname: user.data.surname,
+          phone: user.data.phone,
+          address: user.data.address,
+          joinedDate: user.data.joinedDate
         })
       })
       .catch(function (e) {
@@ -73,7 +79,7 @@ exports.fetchUsers = function(req, res) {
       .catch(e => {
         res.json([])
       })
-  }
+}
 
 exports.home = (req, res) => {
     res.render('home-guest')

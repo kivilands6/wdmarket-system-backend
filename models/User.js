@@ -11,11 +11,7 @@ User.prototype.login = function() {
     console.log("inside login")
     return new Promise( (resolve, reject) => {
         this.cleanUp()
-        console.log(this.data.username)
-        console.log(this.data.password)
         usersCollection.findOne({username: this.data.username}).then((attemptedUser) => {
-            console.log("before if")
-            console.log(attemptedUser)
             if (attemptedUser.username == this.data.username && this.data.password == attemptedUser.password) {
                 this.data = attemptedUser
                 resolve("Congrats!")
@@ -34,12 +30,22 @@ User.prototype.cleanUp = function() {
     if (typeof(this.data.username) != "string") {this.data.username = ""}
     if (typeof(this.data.email) != "string") {this.data.email = ""}
     if (typeof(this.data.password) != "string") {this.data.password = ""}
+    if (typeof(this.data.name) != "string") {this.data.name = ""}
+    if (typeof(this.data.surname) != "string") {this.data.surname = ""}
+    if (typeof(this.data.phone) != "string") {this.data.phone = ""}
+    if (typeof(this.data.address) != "string") {this.data.address = ""}
 
     //get rid of any bogus properties
     this.data = {
         username: this.data.username.trim().toLowerCase(),
         email: this.data.email.trim().toLowerCase(),
-        password: this.data.password
+        password: this.data.password,
+        name: this.data.name,
+        surname: this.data.surname,
+        admin: false,
+        phone: this.data.phone.trim(),
+        address: this.data.address,
+        joinedDate: new Date().toLocaleDateString("en-GB"),
     }
 }
 
@@ -89,7 +95,8 @@ User.prototype.register = function() {
 
 User.fetchUsers = function() {
     return new Promise(async (resolve, reject) => {
-        let users = await usersCollection.find({}).toArray()
+        let query = {}
+        let users = await usersCollection.find(query).toArray()
       if ( users ) {
         resolve(users)
       } else { 

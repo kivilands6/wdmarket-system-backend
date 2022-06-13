@@ -29,7 +29,8 @@ exports.apiLogin = function (req, res) {
           surname: user.data.surname,
           phone: user.data.phone,
           address: user.data.address,
-          joinedDate: user.data.joinedDate
+          joinedDate: user.data.joinedDate,
+          admin: user.data.admin
         })
       })
       .catch(function (e) {

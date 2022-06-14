@@ -21,7 +21,7 @@ Subtask.prototype.cleanUp = function() {
     } else {
         this.data = {
             content: this.data.content,
-            value: this.data.value,
+            value: false,
             taskId: this.data.taskId,
         }
     }
@@ -44,8 +44,6 @@ Subtask.prototype.create = function() {
 Subtask.prototype.updateValue = function() {
     return new Promise(async (resolve, reject) => {
         if (!this.errors.length) {
-            console.log(this.data.id)
-            console.log(this.data.value)
             await subtaskCollection.updateOne(
                 {_id: new ObjectID(this.data.id)},
                 {$set: {value: this.data.value}}
@@ -60,8 +58,6 @@ Subtask.prototype.updateValue = function() {
 Subtask.prototype.updateContent = function() {
     return new Promise(async (resolve, reject) => {
         if (!this.errors.length) {
-            console.log(this.data.id)
-            console.log(this.data.content)
             await subtaskCollection.updateOne(
                 {_id: new ObjectID(this.data.id)},
                 {$set: {content: this.data.content}}
@@ -82,6 +78,17 @@ Subtask.fetchSubtasks = function() {
         reject("No subtasks were found")
       }
     })
+}
+
+Subtask.prototype.delete = function() {
+  return new Promise(async (resolve, reject) => {
+    try {
+        await subtaskCollection.deleteOne({_id: new ObjectID(this.data.id)})
+        resolve()
+    } catch (e) {
+      reject()
+    }
+  })
 }
 
 module.exports = Subtask

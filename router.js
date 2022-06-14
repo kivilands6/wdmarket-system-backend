@@ -30,6 +30,8 @@ router.post("/checkToken", userController.checkToken)
 router.post("/login", userController.apiLogin)
 router.post('/register', userController.apiRegister)
 router.post("/create-project", projectController.createProject)
+router.post("/create-subtask", subtaskController.createSubtask)
+
 router.post("/project-statuss-update", projectController.updateStatuss)
 router.post("/project-access-update", projectController.updateAccess)
 router.post("/subtask-value-update", subtaskController.updateValue)
@@ -37,6 +39,9 @@ router.post("/project-access", projectController.getAccess)
 
 router.post("/create-task", tasktController.createTask)
 router.post("/task-statuss-update", tasktController.updateStatuss)
+
+//delete paths
+router.post("/delete-subtask", subtaskController.deleteSubtask)
 
 
 module.exports = router

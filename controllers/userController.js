@@ -83,5 +83,17 @@ exports.fetchUsers = function(req, res) {
 }
 
 exports.home = (req, res) => {
-    res.render('home-guest')
+    res.send('Welcome to the backend of the system :)')
+}
+
+exports.deleteUser = function(req, res) {
+  let user = new User(req.body)
+  user
+    .delete()
+    .then(() => {
+      res.json("Success")
+    })
+    .catch(e => {
+      res.json("There was a problem deleting user")
+    })
 }

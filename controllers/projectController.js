@@ -99,3 +99,16 @@ exports.fetchCompleted = function(req, res) {
         res.json([])
       })
 }
+
+exports.deleteProject = function(req, res) {
+  let project = new Project(req.body)
+  console.log("inside controller")
+  project
+    .delete()
+    .then(() => {
+      res.json("Success")
+    })
+    .catch(e => {
+      res.json("You do not have permission to perform that action.")
+    })
+}

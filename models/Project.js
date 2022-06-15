@@ -177,4 +177,16 @@ Project.fetchCompleted = function() {
     })
 }
 
+Project.prototype.delete = function() {
+  console.log(this.data.projectId)
+  return new Promise(async (resolve, reject) => {
+    try {
+        await projectCollection.deleteOne({_id: new ObjectID(this.data.projectId)})
+        resolve()
+    } catch (e) {
+      reject()
+    }
+  })
+}
+
 module.exports = Project

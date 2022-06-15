@@ -16,7 +16,17 @@ Task.prototype.cleanUp = function() {
 
     //get rid of any bogus properties
 
-    if(this.data.projectId) {
+    if(this.data.id) {
+      this.data = {
+          title: this.data.title.trim(),
+          project: this.data.project,
+          priority: this.data.priority,
+          content: this.data.content,
+          statuss: "Backlog",
+          assignee: this.data.assignee,
+          id: this.data.id,
+      }
+    } else if(this.data.projectId) {
         this.data = {
             title: this.data.title.trim(),
             project: this.data.project,
@@ -142,6 +152,17 @@ Task.fetchDone = function() {
         reject("No tasks were found")
       }
     })
+}
+
+Task.prototype.delete = function() {
+  return new Promise(async (resolve, reject) => {
+    try {
+        await taskCollection.deleteOne({_id: new ObjectID(this.data.id)})
+        resolve()
+    } catch (e) {
+      reject()
+    }
+  })
 }
 
 module.exports = Task

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const userController = require('./controllers/userController')
 const projectController = require('./controllers/projectController')
-const tasktController = require('./controllers/taskController')
+const taskController = require('./controllers/taskController')
 const subtaskController = require('./controllers/subtaskController')
 const cors = require("cors")
 
@@ -12,18 +12,18 @@ router.get('/', userController.home)
 //fetch all of collection
 router.get('/all-users', userController.fetchUsers)
 router.get('/all-projects', projectController.fetchProjects)
-router.get('/all-tasks', tasktController.fetchTasks)
+router.get('/all-tasks', taskController.fetchTasks)
 router.get('/all-subtasks', subtaskController.fetchSubtasks)
 //project statuses
 router.get("/projects-new", projectController.fetchNew)
 router.get("/projects-inprogress", projectController.fetchInProgress)
 router.get("/projects-completed", projectController.fetchCompleted)
 //task statuses
-router.get("/tasks-backlog", tasktController.fetchBacklog)
-router.get("/tasks-todo", tasktController.fetchTodo)
-router.get("/tasks-inprogress", tasktController.fetchInprogress)
-router.get("/tasks-testing", tasktController.fetchTesting)
-router.get("/tasks-done", tasktController.fetchDone)
+router.get("/tasks-backlog", taskController.fetchBacklog)
+router.get("/tasks-todo", taskController.fetchTodo)
+router.get("/tasks-inprogress", taskController.fetchInprogress)
+router.get("/tasks-testing", taskController.fetchTesting)
+router.get("/tasks-done", taskController.fetchDone)
 
 
 router.post("/checkToken", userController.checkToken)
@@ -37,11 +37,15 @@ router.post("/project-access-update", projectController.updateAccess)
 router.post("/subtask-value-update", subtaskController.updateValue)
 router.post("/project-access", projectController.getAccess)
 
-router.post("/create-task", tasktController.createTask)
-router.post("/task-statuss-update", tasktController.updateStatuss)
+router.post("/create-task", taskController.createTask)
+router.post("/task-statuss-update", taskController.updateStatuss)
 
 //delete paths
 router.post("/delete-subtask", subtaskController.deleteSubtask)
+router.post("/delete-task", taskController.deleteTask)
+router.post("/delete-project", projectController.deleteProject)
+router.post("/delete-user", userController.deleteUser)
+
 
 
 module.exports = router

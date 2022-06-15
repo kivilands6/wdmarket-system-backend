@@ -1,6 +1,7 @@
 const usersCollection = require("../db").collection('users')
 const bcrypt = require('bcryptjs')
 const validator = require('validator')
+const ObjectID = require('mongodb').ObjectID
 
 let User = function(data) {
     this.data = data
@@ -36,7 +37,12 @@ User.prototype.cleanUp = function() {
     if (typeof(this.data.address) != "string") {this.data.address = ""}
 
     //get rid of any bogus properties
-    this.data = {
+    if(this.data.id) {
+      this.data = {
+        id: this.data.id
+      }
+    } else {
+      this.data = {
         username: this.data.username.trim().toLowerCase(),
         email: this.data.email.trim().toLowerCase(),
         password: this.data.password,
@@ -46,6 +52,7 @@ User.prototype.cleanUp = function() {
         phone: this.data.phone.trim(),
         address: this.data.address,
         joinedDate: new Date().toLocaleDateString("en-GB"),
+      }
     }
 }
 
@@ -105,6 +112,17 @@ User.fetchUsers = function() {
         reject("No users were found")
       }
     })
+}
+
+User.prototype.delete = function() {
+  return new Promise(async (resolve, reject) => {
+    try {
+        await usersCollection.deleteOne({_id: new ObjectID(this.data.id)})
+        resolve()
+    } catch (e) {
+      reject()
+    }
+  })
 }
 
 module.exports = User

@@ -15,7 +15,6 @@ exports.createTask = function (req, res) {
 }
 
 exports.updateStatuss = function (req, res) {
-  console.log(req.body)
   let task = new Task(req.body)
   task
     .updateStatuss()
@@ -88,5 +87,17 @@ exports.fetchDone = function(req, res) {
     })
     .catch(e => {
       res.json([])
+    })
+}
+
+exports.deleteTask = function(req, res) {
+  let task = new Task(req.body)
+  task
+    .delete()
+    .then(() => {
+      res.json("Success")
+    })
+    .catch(e => {
+      res.json("You do not have permission to perform that action.")
     })
 }

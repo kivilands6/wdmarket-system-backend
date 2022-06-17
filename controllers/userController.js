@@ -97,3 +97,13 @@ exports.deleteUser = function(req, res) {
       res.json("There was a problem deleting user")
     })
 }
+
+exports.doesUsernameExist = async function (req, res) {
+  let userBool = await User.doesUsernameExist(req.body.username)
+  res.json(userBool)
+}
+
+exports.doesEmailExist = async function (req, res) {
+  let emailBool = await User.doesEmailExist(req.body.email)
+  res.json(emailBool)
+}

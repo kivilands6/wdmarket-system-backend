@@ -46,6 +46,10 @@ router.post("/delete-task", taskController.deleteTask)
 router.post("/delete-project", projectController.deleteProject)
 router.post("/delete-user", userController.deleteUser)
 
+//Exist paths
+router.post("/does-username-exist", userController.doesUsernameExist)
+router.post("/does-email-exist", userController.doesEmailExist)
+
 
 
 module.exports = router

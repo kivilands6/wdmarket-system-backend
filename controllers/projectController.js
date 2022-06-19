@@ -112,3 +112,8 @@ exports.deleteProject = function(req, res) {
       res.json("You do not have permission to perform that action.")
     })
 }
+
+exports.doesNameExist = async function (req, res) {
+  let name = await Project.doesNameExist(req.body.name)
+  res.json(name)
+}

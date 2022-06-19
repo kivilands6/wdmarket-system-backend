@@ -49,6 +49,7 @@ router.post("/delete-user", userController.deleteUser)
 //Exist paths
 router.post("/does-username-exist", userController.doesUsernameExist)
 router.post("/does-email-exist", userController.doesEmailExist)
+router.post("/does-projectname-exist", projectController.doesNameExist)
 
 
 

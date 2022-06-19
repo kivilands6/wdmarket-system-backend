@@ -189,4 +189,21 @@ Project.prototype.delete = function() {
   })
 }
 
+Project.doesNameExist = function(name) {
+  return new Promise(async function(resolve, reject) {
+    if (typeof(name) != "string") {
+      resolve(false)
+      return
+    }
+    console.log("inside module")
+
+    let project = await projectCollection.findOne({name: name})
+    if (project) {
+      resolve(true)
+    } else {
+      resolve(false)
+    }
+  })
+}
+
 module.exports = Project
